@@ -1,0 +1,32 @@
+kategori_buku: One
+id
+no
+nama_kategori
+
+buku: One
+no
+isbn
+foto_buku
+nama_buku
+stok <-jika kosong tidak akan bisa dipilih + berkurang jika dipakai
+kategori_buku
+
+member: Many
+id
+no
+foto_member
+nama_member
+jenis_kelamin
+tanggal_lahir
+no_telepon
+email
+nama_buku
+
+Kategori
+No. | Nama Kategori | 
+
+Buku
+No. | Foto | Nama Buku | Stok | Kategori Buku
+
+Member
+No. | Foto Member | Jenis Kelamin | Tanggal Lahir | No. Telepon | Email | Nama Buku
