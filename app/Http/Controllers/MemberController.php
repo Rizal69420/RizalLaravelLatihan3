@@ -95,6 +95,17 @@ class MemberController extends Controller
                                 'exists:buku,id', 
                                 Rule::unique('member', 'buku_id')->ignore($kopdes->id)],
         ]);
+
+        if ($request->hasFile('foto_member')) {
+            if ($member->foto_member) {
+                Storage::disk('public')->delete($member->foto_member);
+            }
+            $validated['foto_member'] = $request->file('foto_member')->store('member', 'public');
+        } else {
+            unset($validated['foto_member']);
+        }
+        $member->update($validated);
+        return redirect()->route('member.index')->with('success', 'Data member berhasil diperbarui!');
     }
 
     /**
@@ -103,5 +114,11 @@ class MemberController extends Controller
     public function destroy(string $id)
     {
         //
+        $member = Member::findOrFail($id);
+        if ($member->foto_member) {
+            Storage::disk('public')->delete($member->foto_member);
+        }
+        $member->delete();
+        return redirect()->route('member.index')->with('success', 'Data member berhasil dihapus!');
     }
 }

@@ -1,37 +1,39 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar Buku')
+@section('title', 'Daftar Member')
 
 @section('content')
     <div class="container">
-        <h1>Daftar Buku</h1>
-        <a href="{{ route('buku.create') }}" class="btn btn-primary mb-3">Tambah Buku</a>
+        <h1>Daftar Member</h1>
+        <a href="{{ route('member.create') }}" class="btn btn-primary mb-3">Tambah Member</a>
         <table class="table">
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ID</th>
-                    <th>ISBN</th>
-                    <th>Foto Buku</th>
-                    <th>Nama Buku</th>
-                    <th>Stok</th>
-                    <th>Kategori</th>
+                    <th>Foto Member</th>
+                    <th>Nama Member</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Tanggal Lahir</th>
+                    <th>No. Telepon</th>
+                    <th>Email</th>
+                    <th>Buku</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($buku as $item)
+                @foreach ($member as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->isbn }}</td>
-                        <td><img src="{{ asset('storage/' . $item->foto_buku) }}" alt="{{ $item->nama_buku }}" width="100"></td>
-                        <td>{{ $item->nama_buku }}</td>
-                        <td>{{ $item->stok }}</td>
-                        <td>{{ $item->kategori->nama_kategori }}</td>
+                        <td><img src="{{ asset('storage/' . $item->foto_member) }}" alt="{{ $item->nama_member }}" width="100"></td>
+                        <td>{{ $item->nama_member }}</td>
+                        <td>{{ $item->jenis_kelamin }}</td>
+                        <td>{{ $item->tanggal_lahir }}</td>
+                        <td>{{ $item->no_telepon }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td> @if ($item->member) {{ $item->member->nama_member }} @else Tidak ada member @endif </td>
                         <td>
-                            <a href="{{ route('buku.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('buku.destroy', $item->id) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('member.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('member.destroy', $item->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>

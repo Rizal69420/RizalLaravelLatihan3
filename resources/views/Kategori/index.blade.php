@@ -10,7 +10,6 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ID</th>
                     <th>Nama Kategori</th>
                     <th>Aksi</th>
                 </tr>
@@ -19,7 +18,6 @@
                 @foreach ($kategori as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->id }}</td>
                         <td>{{ $item->nama_kategori }}</td>
                         <td>
                             <a href="{{ route('kategori.edit', $item->id) }}" class="btn btn-warning">Edit</a>

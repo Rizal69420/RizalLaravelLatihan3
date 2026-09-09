@@ -10,7 +10,6 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ID</th>
                     <th>ISBN</th>
                     <th>Foto Buku</th>
                     <th>Nama Buku</th>
