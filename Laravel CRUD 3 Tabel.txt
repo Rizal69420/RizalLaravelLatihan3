@@ -30,3 +30,23 @@ No. | Foto | Nama Buku | Stok | Kategori Buku
 
 Member
 No. | Foto Member | Jenis Kelamin | Tanggal Lahir | No. Telepon | Email | Nama Buku
+
+--- Scenario ---
+Book A = 2 stock
+Book B = 1 stock
+
+Create Member 1 → A
+A = 1
+
+Create Member 2 → A
+A = 0
+
+Try Member 3 → A
+❌ rejected
+
+Edit Member 1: A → B
+A = 1
+B = 0
+
+Delete Member 2
+A = 2

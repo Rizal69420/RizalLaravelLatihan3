@@ -6,6 +6,7 @@ use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BukuController extends Controller
 {
@@ -36,7 +37,7 @@ class BukuController extends Controller
     {
         //
         $validated = $request->validate([
-            'isbn'          => 'required|string|max:255',
+            'isbn'          => 'required|string|unique:buku,isbn|max:255',
             'foto_buku'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama_buku'     => 'required|string|max:255',
             'stok'          => 'required|integer',
@@ -79,7 +80,7 @@ class BukuController extends Controller
         $buku = Buku::findOrFail($id);
 
         $validated = $request->validate([
-            'isbn'          => 'required|string|max:255',
+            'isbn'          => ['required', 'string', 'max:255', Rule::unique ('buku', 'isbn')->ignore($buku->id)],
             'foto_buku'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama_buku'     => 'required|string|max:255',
             'stok'          => 'required|integer',

@@ -30,7 +30,7 @@
                         <td>{{ $item->tanggal_lahir }}</td>
                         <td>{{ $item->no_telepon }}</td>
                         <td>{{ $item->email }}</td>
-                        <td> @if ($item->member) {{ $item->member->nama_member }} @else Tidak ada member @endif </td>
+                        <td> @if ($item->buku) {{ $item->buku->nama_buku }} @else Tidak ada buku @endif </td>
                         <td>
                             <a href="{{ route('member.edit', $item->id) }}" class="btn btn-warning">Edit</a>
                             <form action="{{ route('member.destroy', $item->id) }}" method="POST" style="display:inline;">

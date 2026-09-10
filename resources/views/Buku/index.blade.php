@@ -22,7 +22,6 @@
                 @foreach ($buku as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->id }}</td>
                         <td>{{ $item->isbn }}</td>
                         <td><img src="{{ asset('storage/' . $item->foto_buku) }}" alt="{{ $item->nama_buku }}" width="100"></td>
                         <td>{{ $item->nama_buku }}</td>

@@ -26,8 +26,8 @@ class MemberController extends Controller
     {
         //
         $member = Member::all();
-        $buku = Buku::all();
-        return view('member.create', compact('member'));
+        $buku = Buku::where('stok', '>', 0)->get();
+        return view('member.create', compact('member', 'buku'));
     }
 
     /**
@@ -37,19 +37,26 @@ class MemberController extends Controller
     {
         //
         $validated = $request->validate([
-            'foto_member'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max=2048',
-            'nama_member'   => 'required|string|max=255',
+            'foto_member'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_member'   => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Pria,Wanita',
             'tanggal_lahir' => 'required|date',
             'no_telepon'    => 'required|string',
             'email'         => 'required|email',
-            'buku_id'       => 'nullable|exists:buku_id|unique:member,buku_id',
+            'buku_id'       => 'required|exists:buku,id',
         ]);
+
+        $buku = Buku::findOrFail($validated['buku_id']);
+        if ($buku->stok <= 0) {
+            return back()->with('error', 'Stok buku habis');
+        }
 
         if ($request->hasFile('foto_member')) {
             $validated['foto_member'] = $request->file('foto_member')->store('member', 'public');
         }
+        
         Member::create($validated);
+        $buku->decrement('stok');
 
         return redirect()->route('member.index')->with('success', 'Data Member berhasil disimpan!');
     }
@@ -69,7 +76,7 @@ class MemberController extends Controller
     {
         //
         $member = Member::findOrFail($id);
-        $buku = Buku::whereDoesntHave('member')
+        $buku = Buku::where('stok', '>', 0)
         ->orWhere('id', $member->buku_id)
         ->get();
 
@@ -82,19 +89,34 @@ class MemberController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $kopdes = Kopdes::findOrFail($id);
+        $member = Member::findOrFail($id);
+        $oldBukuId = $member->buku_id;
 
         $validated = $request->validate([
-            'foto_member'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max=2048',
-            'nama_member'   => 'required|string|max=255',
+            'foto_member'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'nama_member'   => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Pria,Wanita',
             'tanggal_lahir' => 'required|date',
             'no_telepon'    => 'required|string',
             'email'         => 'required|email',
             'buku_id'       => ['nullable', 
-                                'exists:buku,id', 
-                                Rule::unique('member', 'buku_id')->ignore($kopdes->id)],
+                                'exists:buku,id'],
         ]);
+
+        $newBukuId = $validated['buku_id'];
+        if ($newBukuId && $newBukuId != $oldBukuId) {
+            $newBuku = Buku::findOrFail($newBukuId);
+            if ($newBuku->stok <= 0) {
+                return back()->with('error', 'stok buku habis');
+            }
+        }
+
+        if ($oldBukuId && $oldBukuId != $validated['buku_id']) {
+            Buku::find($oldBukuId)->increment('stok');
+        }
+        if ($validated['buku_id'] && $validated['buku_id'] != $oldBukuId) {
+            Buku::find($validated['buku_id'])->decrement('stok');
+        }
 
         if ($request->hasFile('foto_member')) {
             if ($member->foto_member) {
@@ -104,6 +126,7 @@ class MemberController extends Controller
         } else {
             unset($validated['foto_member']);
         }
+
         $member->update($validated);
         return redirect()->route('member.index')->with('success', 'Data member berhasil diperbarui!');
     }
@@ -118,6 +141,11 @@ class MemberController extends Controller
         if ($member->foto_member) {
             Storage::disk('public')->delete($member->foto_member);
         }
+
+        if ($member->buku_id) {
+            Buku::find($member->buku_id)->increment('stok');
+        }
+
         $member->delete();
         return redirect()->route('member.index')->with('success', 'Data member berhasil dihapus!');
     }

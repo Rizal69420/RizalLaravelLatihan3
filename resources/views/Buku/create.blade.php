@@ -9,7 +9,11 @@
             @csrf
             <div class="form-group">
                 <label for="isbn">ISBN</label>
-                <input type="text" name="isbn" id="isbn" class="form-control" required>
+                <input type="text" name="isbn" id="isbn" class="form-control" value="{{ old('isbn', $buku->isbn) }}" required>
+                
+                @error('isbn')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="foto_buku">Foto Buku</label>
