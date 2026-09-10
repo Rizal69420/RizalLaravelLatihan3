@@ -9,7 +9,7 @@
             @csrf
             <div class="form-group">
                 <label for="isbn">ISBN</label>
-                <input type="text" name="isbn" id="isbn" class="form-control" value="{{ old('isbn', $buku->isbn) }}" required>
+                <input type="text" name="isbn" id="isbn" class="form-control" value="{{ old('isbn') }}" required>
                 
                 @error('isbn')
                     <div class="text-danger">{{ $message }}</div>
@@ -35,6 +35,7 @@
                     @endforeach
                 </select>
             </div>
+            <a href="{{ route('buku.index') }}" class="btn btn-secondary me-2">Batal</a>
             <button type="submit" class="btn btn-primary mt-3">Simpan</button>
         </form>
     </div>

@@ -1,9 +1,168 @@
 @import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+body {
+    background:
+        radial-gradient(circle at top left, rgba(126, 34, 206, 0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(168, 85, 247, 0.12), transparent 30%),
+        #090014;
+
+    color: #f3e8ff;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Headings */
+h1 {
+    color: #e9d5ff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background: rgba(24, 8, 40, 0.85);
+    border: 1px solid #581c87;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(126, 34, 206, 0.15);
+}
+
+th {
+    background: #3b0764;
+    color: #f3e8ff;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+td {
+    padding: 0.9rem 1rem;
+    color: #e9d5ff;
+    border-top: 1px solid rgba(126, 34, 206, 0.25);
+}
+
+tbody tr {
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+tbody tr:hover {
+    background: rgba(126, 34, 206, 0.12);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #e9d5ff;
+    font-weight: 600;
+}
+
+.form-control,
+.form-control-file {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-control {
+    padding: 0.7rem 0.9rem;
+    background: #12051d;
+    color: #f3e8ff;
+    border: 1px solid #581c87;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.35);
+}
+
+.form-control::placeholder {
+    color: #a78bba;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.65rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+    background: #7e22ce;
+    color: white;
+    box-shadow: 0 0 10px rgba(126, 34, 206, 0.25);
+}
+
+.btn-primary:hover {
+    background: #9333ea;
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.45);
+}
+
+/* Validation errors */
+.text-danger {
+    color: #f0abfc;
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+}
+
+/* Secondary buttons */
+.btn-secondary {
+    background: #3b0764;
+    color: #e9d5ff;
+    border: 1px solid #7e22ce;
+}
+
+.btn-secondary:hover {
+    background: #581c87;
+    color: white;
+    box-shadow: 0 0 12px rgba(168, 85, 247, 0.35);
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(40px, -30px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.shape {
+    animation: float 6s ease-in-out infinite;
 }

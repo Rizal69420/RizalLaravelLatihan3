@@ -38,6 +38,7 @@
                     @endforeach
                 </select>
             </div>
+            <a href="{{ route('buku.index') }}" class="btn btn-secondary me-2">Batal</a>
             <button type="submit" class="btn btn-primary mt-3">Simpan</button>
         </form>
     </div>
