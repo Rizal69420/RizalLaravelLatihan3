@@ -24,7 +24,7 @@
                 @foreach ($member as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td><img src="{{ asset('storage/' . $item->foto_member) }}" alt="{{ $item->nama_member }}" width="1000" aspect-ratio= 1;></td>
+                        <td><img src="{{ asset('storage/' . $item->foto_member) }}" alt="{{ $item->nama_member }}" class="club-image" style=width 1000 aspect-ratio= 1;></td>
                         <td>{{ $item->nama_member }}</td>
                         <td>{{ $item->jenis_kelamin }}</td>
                         <td>{{ $item->tanggal_lahir }}</td>
