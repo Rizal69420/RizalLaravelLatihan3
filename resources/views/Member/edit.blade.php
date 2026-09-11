@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select class="form-select @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
+                <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" name="jenis_kelamin">
                     <option value="">Pilih Jenis Kelamin</option>
                     <option value="Pria" {{ old('jenis_kelamin', $member->jenis_kelamin) == 'Pria' ? 'selected' : '' }}>Pria</option>
                     <option value="Wanita" {{ old('jenis_kelamin', $member->jenis_kelamin) == 'Wanita' ? 'selected' : '' }}>Wanita</option>
@@ -49,7 +49,7 @@
                 <label for="buku_id">Buku</label>
                 <select name="buku_id" id="buku_id" class="form-control" required>
                     @foreach ($buku as $item)
-                        <option value="{{ $item->id }}" {{ $item->id == $member->buku_id ? 'selected' : '' }}>{{ $item->nama_buku }}</option>
+                        <option value="{{ $item->id }}" {{ $item->id == $member->buku_id ? 'selected' : '' }}>{{ $item->nama_buku }} - Stok {{ $item->stok}}</option>
                     @endforeach
                 </select>
             </div>

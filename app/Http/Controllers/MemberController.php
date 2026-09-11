@@ -37,7 +37,7 @@ class MemberController extends Controller
     {
         //
         $validated = $request->validate([
-            'foto_member'   => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_member'   => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'nama_member'   => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Pria,Wanita',
             'tanggal_lahir' => 'required|date',

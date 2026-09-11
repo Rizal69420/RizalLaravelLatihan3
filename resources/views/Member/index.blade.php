@@ -24,19 +24,21 @@
                 @foreach ($member as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td><img src="{{ asset('storage/' . $item->foto_member) }}" alt="{{ $item->nama_member }}" width="100"></td>
+                        <td><img src="{{ asset('storage/' . $item->foto_member) }}" alt="{{ $item->nama_member }}" width="1000" aspect-ratio= 1;></td>
                         <td>{{ $item->nama_member }}</td>
                         <td>{{ $item->jenis_kelamin }}</td>
                         <td>{{ $item->tanggal_lahir }}</td>
                         <td>{{ $item->no_telepon }}</td>
                         <td>{{ $item->email }}</td>
                         <td> @if ($item->buku) {{ $item->buku->nama_buku }} @else Tidak ada buku @endif </td>
-                        <td>
-                            <a href="{{ route('member.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('member.destroy', $item->id) }}" method="POST" style="display:inline;">
+                        <td class="actions">
+                            <a href="{{ route('member.edit', $item->id) }}" class="btn btn-edit">Edit</a>
+                            <form action="{{ route('member.destroy', $item->id) }}" method="POST" style="display: inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus member ini?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-delete">
+                                    Hapus
+                                </button>
                             </form>
                         </td>
                     </tr>

@@ -38,7 +38,7 @@ class BukuController extends Controller
         //
         $validated = $request->validate([
             'isbn'          => 'required|string|unique:buku,isbn|max:255',
-            'foto_buku'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto_buku'     => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'nama_buku'     => 'required|string|max:255',
             'stok'          => 'required|integer',
             'kategori_id'   => 'required|exists:kategori,id',

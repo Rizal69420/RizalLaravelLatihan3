@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->isbn }}</td>
-                        <td><img src="{{ asset('storage/' . $item->foto_buku) }}" alt="{{ $item->nama_buku }}" width="100"></td>
+                        <td><img class="foto-buku" src="{{ asset('storage/' . $item->foto_buku) }}" alt="Foto Buku"></td>
                         <td>{{ $item->nama_buku }}</td>
                         <td>{{ $item->stok }}</td>
                         <td>
@@ -33,12 +33,14 @@
                                 Kategori tidak tersedia
                             @endif
                         </td>
-                        <td>
-                            <a href="{{ route('buku.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('buku.destroy', $item->id) }}" method="POST" style="display:inline;">
+                        <td class="actions">
+                            <a href="{{ route('buku.edit', $item->id) }}" class="btn btn-edit">Edit</a>
+                            <form action="{{ route('buku.destroy', $item->id) }}" method="POST" style="display: inline on" onsubmit="return confirm('Apakah Anda yakin ingin menghapus buku ini?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-delete">
+                                    Hapus
+                                </button>
                             </form>
                         </td>
                     </tr>

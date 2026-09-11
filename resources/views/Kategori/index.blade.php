@@ -19,12 +19,14 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->nama_kategori }}</td>
-                        <td>
-                            <a href="{{ route('kategori.edit', $item->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('kategori.destroy', $item->id) }}" method="POST" style="display:inline;">
+                        <td class="actions">
+                            <a href="{{ route('kategori.edit', $item->id) }}" class="btn btn-edit">Edit</a>
+                            <form action="{{ route('kategori.destroy', $item->id) }}" method="POST" style="display: inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-delete">
+                                    Hapus
+                                </button>
                             </form>
                         </td>
                     </tr>
